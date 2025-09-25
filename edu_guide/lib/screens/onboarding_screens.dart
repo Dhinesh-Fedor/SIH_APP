@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_pages.dart';
 import '../themes/app_theme.dart';
-import '../screens/login_screen.dart';
+import 'auth_check_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -63,9 +63,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeIn,
       );
     } else {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const AuthCheckScreen()),
+      );
     }
   }
 
@@ -83,7 +83,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Builder(
           builder: (context) {
             SizeConfig.init(context);
-
             return Padding(
               padding: EdgeInsets.all(kPadding),
               child: Column(
@@ -101,7 +100,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                     ),
                   ),
-                  // Action Buttons
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
