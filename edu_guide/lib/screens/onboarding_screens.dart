@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_pages.dart';
 import '../themes/app_theme.dart';
+import '../screens/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -61,6 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
+    } else {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
     }
   }
 
@@ -77,43 +82,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Builder(
           builder: (context) {
-            SizeConfig.init(context); // Now context is fully laid out
+            SizeConfig.init(context);
 
             return Padding(
               padding: EdgeInsets.all(kPadding),
               child: Column(
                 children: [
-                  // Progress Indicators
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(onboardingData.length, (index) {
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                        height: 8.0,
-                        width: index == _currentPage ? 32.0 : 8.0,
-                        decoration: BoxDecoration(
-                          color: index == _currentPage
-                              ? kPrimaryColor
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                      );
-                    }),
-                  ),
                   Expanded(
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: onboardingData.length,
-                      physics:
-                          const BouncingScrollPhysics(), // Enables mouse/touch swiping
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
                       itemBuilder: (context, index) {
-                        return OnboardingPage(item: onboardingData[index]);
+                        return OnboardingPage(
+                          item: onboardingData[index],
+                          currentPage: _currentPage,
+                          totalPages: onboardingData.length,
+                        );
                       },
                     ),
                   ),
@@ -122,9 +106,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ElevatedButton(
-                        onPressed: isLastPage ? null : _onNext,
+                        onPressed: _onNext,
                         child: Text(
-                          isLastPage ? 'Get Started →' : 'Next',
+                          isLastPage ? 'Get Started' : 'Next',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

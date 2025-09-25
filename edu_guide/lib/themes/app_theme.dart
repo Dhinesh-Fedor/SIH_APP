@@ -15,9 +15,9 @@ const String kFontFamily = 'Inter';
 const double kPadding = 16.0;
 const double kLargePadding = 32.0;
 const double kBorderRadius = 30.0;
-const double kImageSize = 0.45; // % of screen width
-const double kTitleFontSize = 0.07; // % of screen width
-const double kDescFontSize = 0.045; // % of screen width
+const double kImageSize = 0.55; // Increased image size
+const double kTitleFontSize = 0.055; // Reduced header size
+const double kDescFontSize = 0.035; // Reduced body text size
 
 // --- Responsive Helper ---
 class SizeConfig {
